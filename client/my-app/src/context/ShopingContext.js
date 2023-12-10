@@ -13,7 +13,6 @@ export function ShoppingContexProvider({ children }){
     function AddToCart(id, price){
         let audio = new Audio(SelectionSfx);
         audio.play();
-        
         UpdateCarLenght((prev) => prev + 1)
         UpdateCarTotal((prev) => prev + price)
         if(carItems[id]){
@@ -34,8 +33,16 @@ export function ShoppingContexProvider({ children }){
         console.log(carItems)
     }
 
-    function RemovefromCart(){
-        UpdateCarLenght((prev) => prev - 1)
+    function RemovefromCart(id, price){
+        let audio = new Audio(SelectionSfx);
+        audio.play();
+        UpdateCarLenght((prev) => prev - 1);
+        UpdateCarTotal((prev) => prev - price);
+        UpdateCarItems((prev)=>{
+            prev[id] = prev[id] - 1;
+            return prev
+        })
+
     }
 
     const value ={
