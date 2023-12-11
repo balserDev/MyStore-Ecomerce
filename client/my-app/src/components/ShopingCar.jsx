@@ -16,9 +16,9 @@ const amountText = {
 function ShopingCar(props){
     const {cartLenght} = useContext(ShoppingContex)
 
-    return <div >
+    return <div style={{height:"80px"}}>
         <img style={{width:"80px", height:"80px", filter:"invert(100%)"}} src="https://www.freeiconspng.com/thumbs/cart-icon/basket-cart-icon-27.png"></img>
-        <div style={{border:"solid 5px yellow",borderRadius:"50%",  width:"40px",  height:"40px", position:"absolute", top:"70px",  right:"70px"}}>
+        <div style={{border:"solid 5px yellow",borderRadius:"50%",  width:"40px",  height:"40px", position:"relative", top:"-40px",  right:"-60px"}}>
             <div style={amountText} className="counter">{cartLenght ? cartLenght : 0}</div>
         </div>
     </div>

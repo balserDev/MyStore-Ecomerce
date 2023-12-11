@@ -15,13 +15,18 @@ function Header(props){
             <div className="Logo-text">My Store</div>
         </Link>
         
-        <ul style={{paddingRight:"100px", listStyle:"none"}}>
+        <ul style={{paddingRight:"100px", listStyle:"none", display:"flex", flexDirection:"row", gap:"50px", alignItems:"center"}}>
             <li>
-                <Link to="/car" onClick={cartSound}>
+                <img src="https://static.thenounproject.com/png/1995071-200.png" style={{width:"80px", height:"80px", filter:"invert()"}}></img>
+            </li>
+            <li>
+                <Link to="/car" onClick={cartSound} style={{textDecoration:"none"}}>
                     <ShopingCar></ShopingCar>
                 </Link>
-            
             </li>
+           
+            
+            
         </ul>
        
     </div>
