@@ -12,6 +12,13 @@ const textStyle = {
     fontSize:"25px"
 }
 
+const descriptionText = {
+    fontFamily:"Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif",
+    textAlign:"center",
+    fontSize:"25px",
+    height:"50px"
+}
+
 const buttonStyle ={
     width:"100px",
     height:"50px",
@@ -34,7 +41,7 @@ function ProductShowCase(props){
 
         <img src={props.image} style={imageStyling}></img>
         <h1 style={textStyle}>{props.name}</h1>
-        <h2 style={textStyle}>{props.description}</h2>
+        <h2 style={descriptionText}>{props.description}</h2>
         <ul style={{listStyle:"none", display:"flex", flexDirection:"row", gap:"10px", position:"relative", right:"35px", alignItems:'center'}}>
             <li>
                 <h3 style={textStyle}>{props.price} $</h3>

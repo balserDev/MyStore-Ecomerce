@@ -31,13 +31,14 @@ app.listen(port, (req, res)=>{
 
 
 app.get("/products", (req, res)=>{
-   db.query('SELECT * FROM products', (err, data)=>{
+    console.log("Getting products....");
+    db.query('SELECT * FROM products', (err, data)=>{
     if(err){
         console.log('ERROR CAN NOT CONECT');
     }else{
         res.send(data.rows);
     }
-   })
+    })
     
 })
 
@@ -76,7 +77,31 @@ app.post("/register", (req, res)=>{
     }else{
         res.send({succes:false, error:"Error passwords don't match"});
     }
-
-  
-   
+ 
 })
+
+app.post("/login", (req, res)=>{
+
+    let userEmail = req.body.email;
+    let userPasword = req.body.password;
+
+    db.query(`SELECT * FROM users WHERE email = '${userEmail}'`, (err, data)=>{
+        if(err){
+            console.log('ERROR CAN NOT CONECT');
+            res.send({loged:false, error:"Error cant conect to the data base"});
+        }else{
+            if(data.rows != 0){
+                if(data.rows[0].password == userPasword){
+                    res.send({loged:true, userData:data.rows}); 
+                }else{
+                    res.send({loged:false, error:"Password or email incorrect"});
+                }
+            }else{
+                res.send({loged:false, error:"That account does not exist"});
+            }
+        }
+
+    })
+});
+
+

@@ -8,6 +8,7 @@ export const UserContext = createContext({});
 export function UserContextProvider({children}){
 
     const [loginData, setloginData] = useState({});
+    const [userData, setUserData] = useState({loged:false, data:{}});
 
     function RegisterUser(username, password, email, repasword){
         console.log('Registering...Checking API');
@@ -37,10 +38,39 @@ export function UserContextProvider({children}){
         });
     }
 
+    function LoginUser(email, password){
+        console.log('Registering...Checking API');
+        
+        const data = {
+            dataPassword : password,
+            dataEmail: email,
+        }
+
+        fetch('http://localhost:3005/login', {
+            headers:{
+                'Content-type':"application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+                password: data.dataPassword,
+                email: data.dataEmail
+            }),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            setUserData(data)
+        });
+    }
+
+    function LogOut(){
+        setUserData({loged:false, data:{}})
+    }
     const value ={
         RegisterUser,
-        loginData
-
+        loginData,
+        userData,
+        LoginUser,
+        LogOut
     }
 
     return(

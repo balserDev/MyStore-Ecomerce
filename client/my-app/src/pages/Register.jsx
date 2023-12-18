@@ -3,12 +3,10 @@ import Header from "../components/Header";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 function Register(){
     const{RegisterUser, loginData} = useContext(UserContext);
-    
-    const [error, toggleError] = useState(false);
-    const [warning, setWarning] = useState("warning");
 
     const [data, setData] = useState({
         username:"",
@@ -26,7 +24,7 @@ function Register(){
     function submit(e){
         e.preventDefault();
         RegisterUser(data.username, data.password, data.email, data.repasword);
-        
+     
     }
 
 
@@ -46,7 +44,7 @@ function Register(){
 
             </form>
 
-            {!loginData.succes ? <h1 className="Error">{loginData.error}</h1>: false}
+            {!loginData.succes ? <h1 className="Error">{loginData.error}</h1>: <Navigate to="/login"></Navigate>}
             
         </div>
         
