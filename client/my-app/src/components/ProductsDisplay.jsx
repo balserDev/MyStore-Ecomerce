@@ -1,13 +1,11 @@
 import React from "react";
 import ProductShowCase from "./ProductShowCase";
-import products from "../data/products";
-import { useState } from "react";
-import { carContext } from "../context/ShopingContext";
-
+import { ShoppingContex } from "../context/ShopingContext";
+import { useContext } from "react";
 
 function ProductsDisplay(){
-
-
+    const {products} = useContext(ShoppingContex)
+    
     return <div className="Display">
         {products.map((product => {
             return <ProductShowCase

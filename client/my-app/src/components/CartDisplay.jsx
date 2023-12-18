@@ -1,11 +1,12 @@
 import React from "react";
 import CartItem from "./CartItem";
-import products from "../data/products";
 import { useContext } from "react";
 import { ShoppingContex } from "../context/ShopingContext";
 
 function CartDisplay(){
-    const {carItems, carTotal} = useContext(ShoppingContex)
+    const {carItems, carTotal, products} = useContext(ShoppingContex)
+
+    
     return <div className="CarDisplay">
         {products.map((product => {
             if(carItems[product.id]){

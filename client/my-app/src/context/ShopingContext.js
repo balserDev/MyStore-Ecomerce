@@ -1,14 +1,29 @@
 import { createContext } from "react";
 import { useState } from "react";
 import SelectionSfx from '../sfx/SelectionSfx.mp3'
-
+import { useEffect } from "react";
 
 export const ShoppingContex = createContext({});
+
+
 
 export function ShoppingContexProvider({ children }){
     const [cartLenght, UpdateCarLenght] = useState(0);
     const [carTotal, UpdateCarTotal] = useState(0);
     const [carItems, UpdateCarItems] = useState({});
+    const [products, updateProducts] = useState([]);
+    
+    useEffect(()=>{
+            fetch('http://localhost:3005/products')
+                .then(res=>{
+                    let products = res.json();
+                    return products
+                })
+                .then(data=>{
+                    console.log(data);
+                    updateProducts(data);
+                })
+    },[])
 
     function AddToCart(id, price){
         let audio = new Audio(SelectionSfx);
@@ -46,6 +61,7 @@ export function ShoppingContexProvider({ children }){
     }
 
     const value ={
+        products,
         cartLenght,
         carItems,
         AddToCart,
