@@ -10,7 +10,10 @@ export const ShoppingContex = createContext({});
 export function ShoppingContexProvider({ children }){
     const [cartLenght, UpdateCarLenght] = useState(0);
     const [carTotal, UpdateCarTotal] = useState(0);
+
+    //Holds the data of how many of each items do we have
     const [carItems, UpdateCarItems] = useState({});
+    //Saves a lsit of all the products
     const [products, updateProducts] = useState([]);
     
     useEffect(()=>{
@@ -60,13 +63,33 @@ export function ShoppingContexProvider({ children }){
 
     }
 
+    function GoToCheckOut(){
+
+        fetch('http://localhost:3005/check-out', {
+            headers:{
+                'Content-type':"application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+                items:carItems
+            }),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log('My Sesion Url: ' + data.url)
+            window.location.replace(data.url);
+        });
+
+    }
+
     const value ={
         products,
         cartLenght,
         carItems,
         AddToCart,
         carTotal,
-        RemovefromCart
+        RemovefromCart,
+        GoToCheckOut
     }
 
     return(

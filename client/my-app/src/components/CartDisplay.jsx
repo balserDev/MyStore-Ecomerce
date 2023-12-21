@@ -1,10 +1,27 @@
 import React from "react";
 import CartItem from "./CartItem";
 import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import { ShoppingContex } from "../context/ShopingContext";
 
 function CartDisplay(){
-    const {carItems, carTotal, products} = useContext(ShoppingContex)
+    const {carItems, carTotal, products, GoToCheckOut} = useContext(ShoppingContex)
+    const {userData} = useContext(UserContext)
+    const checkOutStyle1= {
+    backgroundColor:"orange",
+    color:"black",
+    marginTop:"20px",
+    border:"solid 2px black",
+    width:"300px"
+    }
+    const checkOutStyle2= {
+        backgroundColor:"orange",
+        color:"black",
+        marginTop:"20px",
+        border:"solid 2px black",
+        width:"300px",
+        opacity:"0.5"
+    }
 
     
     return <div className="CarDisplay">
@@ -22,7 +39,7 @@ function CartDisplay(){
         }))}
 
         <div className="MainTitle" style={{fontSize:"20px"}}>Total: {carTotal} $</div>
-        <button className="buttonStyle" style={{backgroundColor:"orange", color:"black", marginTop:"20px", border:"solid 2px black", width:"300px"}}>Check Out</button>
+        <button onClick={userData.loged ? GoToCheckOut: ()=>{}} className="buttonStyle" style={userData.loged ? checkOutStyle1 : checkOutStyle2  }>{userData.loged ? "Check out": "Login to checkout"}</button>
         </div>
         
 }

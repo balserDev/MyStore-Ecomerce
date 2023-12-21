@@ -3,10 +3,11 @@ import pg from 'pg'
 import 'dotenv/config'
 import cors from 'cors'
 import bodyParser from 'body-parser';
+import Stripe from 'stripe';
 
 const app = express();
 const port = 3005;
-
+const stripe = Stripe(process.env.STRIPE_API_KEY);
 
 const db = new pg.Client({
     user:process.env.DATA_BASE_USER,
@@ -103,5 +104,52 @@ app.post("/login", (req, res)=>{
 
     })
 });
+
+
+app.post('/check-out', async(req, res)=>{
+    console.log(req.body.items + " my items boy");
+    let carItems = Object.keys(req.body.items);
+    console.log('le car items ' + carItems);
+    let lineItems = [];
+
+    for(let i = 0; i<carItems.length; i++){
+        if(req.body.items[carItems[i]] > 0){
+            console.log('hyperloop '  + i);
+            var productName = '';
+            var productPrice = 0;
+
+            const data = await db.query(`SELECT name, price FROM products WHERE id=${carItems[i]}`)
+    
+            productName = data.rows[0].name;
+            productPrice = data.rows[0].price * 100;
+            console.log(productName);
+            console.log(productPrice);
+
+            lineItems.push({
+                price_data: {
+                    currency:'cad',
+                    product_data:{
+                        name: productName
+                    },
+                    unit_amount:productPrice
+                },
+                quantity: req.body.items[carItems[i]]
+            })
+            console.log(lineItems + "being pushed");
+        }
+        
+    }
+
+    console.log("HyperTest " + lineItems[0]);
+
+    const sesion = await stripe.checkout.sessions.create({
+        payment_method_types:['card'],
+        mode: 'payment',
+        line_items: lineItems,
+        success_url: `${process.env.CLIENT_URL}/payment-succes`,
+        cancel_url: `${process.env.CLIENT_URL}/payment-error`,
+    })
+    res.send({url:sesion.url})
+})
 
 
