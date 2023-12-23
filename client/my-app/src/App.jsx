@@ -1,5 +1,4 @@
 import React from "react";
-import { ShoppingContexProvider } from "./context/ShopingContext";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Market from "./pages/Market";
 import ShoppingCarPage from "./pages/ShoppingCarPage";
@@ -7,11 +6,14 @@ import Footer from "./components/Footrer";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Succses from "./pages/Succes";
+import { ShoppingContexProvider } from "./context/ShopingContext";
 import { UserContextProvider } from "./context/UserContext";
 import Fail from "./pages/Fail";
-function App(){
 
+function App(){
+    
     return <div>
+
         <ShoppingContexProvider>
         <UserContextProvider>
             <BrowserRouter>
@@ -27,7 +29,7 @@ function App(){
             </BrowserRouter>
         </UserContextProvider>
         </ShoppingContexProvider>
-            
+
         <Footer></Footer>
         
     </div>

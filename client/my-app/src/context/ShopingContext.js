@@ -64,7 +64,7 @@ export function ShoppingContexProvider({ children }){
     }
 
     function GoToCheckOut(){
-
+        console.log("Tester");
         fetch('http://localhost:3005/check-out', {
             headers:{
                 'Content-type':"application/json"

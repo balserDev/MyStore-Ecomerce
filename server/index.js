@@ -20,7 +20,8 @@ const db = new pg.Client({
 db.connect();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(express.static("public"));
 
 app.use(cors({
     origin:"http://localhost:3000",
@@ -30,6 +31,9 @@ app.listen(port, (req, res)=>{
     console.log(`app started on port ${port}`);
 })
 
+app.get('/admin', (req, res)=>{
+    res.render('Admin.ejs');
+})
 
 app.get("/products", (req, res)=>{
     console.log("Getting products....");
@@ -105,6 +109,19 @@ app.post("/login", (req, res)=>{
     })
 });
 
+app.post('/add-product', async (req, res)=>{
+    let data = req.body;
+    await db.query('INSERT INTO products ( name, image, description, price) VALUES ($1, $2, $3, $4)',
+    [data.name, data.url, data.description, data.price]);
+    res.render('Admin.ejs', {succes:"Added to the data base"});
+})
+app.post('/del-product', async (req, res)=>{
+    let data = req.body;
+    console.log(data.id + " my id");
+    await db.query(`DELETE FROM products WHERE id=${data.id}`);
+    res.render('Admin.ejs', {succes:"Deleted from the data base"});
+})
+
 
 app.post('/check-out', async(req, res)=>{
     console.log(req.body.items + " my items boy");
@@ -149,7 +166,7 @@ app.post('/check-out', async(req, res)=>{
         success_url: `${process.env.CLIENT_URL}/payment-succes`,
         cancel_url: `${process.env.CLIENT_URL}/payment-error`,
     })
-    res.send({url:sesion.url})
+    res.send({url:sesion.url});
 })
 
 

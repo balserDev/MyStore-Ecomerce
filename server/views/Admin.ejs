@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mian.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="heading">
+        <h1 class="title">My Store admin</h1>
+    </div>
+    <div class="container">
+        <form class="form" action="/add-product" method="post">
+            <h1 class="subheader">Add product</h1>
+            <input class="input" type="text" placeholder="name" name="name">
+            <input class="input"type="text" placeholder="image url" name="url">
+            <input class="input"type="text" placeholder="description" name="description">
+            <input class="input"type="number" placeholder="price" name="price">
+            <input type="submit" placeholder="submit">
+            
+        </form>
+    
+        
+        <form class="form" action="/edit-product" method="post">
+            <h1 class="subheader">Edit product</h1>
+
+            <input class="input" type="number" placeholder="Product Id" name="id">  
+            <input class="input" type="text" placeholder="Type your change" name="change" style="float: right;">
+            <select name="target" >
+                <option value="name">Name</option>
+                <option value="image">Image Url</option>
+                <option value="description">Description</option>
+                <option value="price">Price</option>
+            </select>
+           
+            
+
+            <input type="submit" placeholder="submit">
+        </form>
+        <form class="form" action="/del-product" method="post">
+            <h1 class="subheader">Delete product</h1>
+            <input class="input"type="number" placeholder="Product Id" name="id">  
+            <input type="submit" placeholder="submit">
+        </form>
+    </div>
+    
+</body>
+</html>
