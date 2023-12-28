@@ -48,7 +48,7 @@ function CartItem(props){
 
     const {RemovefromCart} = useContext(ShoppingContex)
 
-    return<div style={containerStyle}>
+    return<div style={containerStyle} >
         <div style={{display:'flex', flexFlow:"row", gap:"50px", paddingLeft:"20px", alignItems:"center",  border:"solid 5px black", borderRadius:"10px", width:"500px",}}>
             <div style={textStyleAlt}>{"x " + props.amount}</div>
             <img style={{width:"100px", height:"100px"}} src={props.img}></img>

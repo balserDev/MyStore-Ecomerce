@@ -56,7 +56,7 @@ body{
     align-items: center;
 
     position: absolute;
-    bottom: -350px;
+    bottom: -700px;
 }
 .Header{
     width: 100%;
@@ -87,14 +87,26 @@ body{
     border: solid black 5px;
     border-radius: 10px;
     box-shadow: 5px 10px black;
+    transition-property: all;
+    transition-duration: 1s;
 }
+
+.ShowCase:hover{
+    transform: scale(1.1, 1.1);
+}
+
+.icon:hover{
+    opacity: .8;
+    transform: scale(1.1, 1.1);
+}
+
 .Display{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     margin: 50px;
 }
 

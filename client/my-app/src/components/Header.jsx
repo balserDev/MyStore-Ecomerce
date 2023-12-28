@@ -23,7 +23,7 @@ function Header(props){
     }
 
     return <div className="Header" >
-        <Link to="/" style={{textDecoration:"none", color:"white"}}>
+        <Link to="/" style={{textDecoration:"none", color:"white", transitionDuration:"1s"}} className="icon">
             <div className="Logo-text">My Store</div>
         </Link>
         
